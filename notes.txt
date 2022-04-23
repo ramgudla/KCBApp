@@ -1,0 +1,24 @@
+stop.sh
+#!/bin/bash
+PID=$(ps -ef | grep KCBApp-0.0.1-SNAPSHOT.jar | grep -v grep | awk '{ print $2 }')
+if [ -z "$PID" ]
+then
+    echo Application is already stopped
+else
+    echo kill $PID
+    kill $PID
+fi
+
+start.sh
+#!/bin/bash
+// Start via port 8081
+nohup java -jar KCBApp-0.0.1-SNAPSHOT.jar --server.port=8081 &
+disown
+
+
+restart.sh
+#!/bin/bash
+echo stop application
+source stop.sh
+echo start application
+source start.sh
