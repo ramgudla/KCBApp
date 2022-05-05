@@ -20,5 +20,15 @@ public class ApplicationExceptionHandler {
         errorResponse.put("message", e.getLocalizedMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
+    
+    @ExceptionHandler(DuplicateRecordException.class)
+    public ResponseEntity<Map<String, String>> handleException(DuplicateRecordException e) {
+    	Map<String, String> errorResponse = new LinkedHashMap<String, String>();
+    	errorResponse.put("timestamp", Instant.now().toString());
+    	errorResponse.put("status", HttpStatus.NOT_FOUND.toString());
+    	errorResponse.put("error", "KFS Validation Error");
+        errorResponse.put("message", e.getLocalizedMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 
 }
