@@ -22,3 +22,26 @@ echo stop application
 source stop.sh
 echo start application
 source start.sh
+
+
+systemd service:
+https://stackoverflow.com/questions/21503883/spring-boot-application-as-a-service
+https://unix.stackexchange.com/questions/237749/where-to-find-the-logs-of-the-services-started-by-systemd-at-computer-boot
+
+
+/etc/systemd/system/kfs-app.service
+
+[Unit]
+Description=KFS KCB Integration
+After=syslog.target
+
+[Service]
+User=kfs
+WorkingDirectory=/home/anil
+ExecStart=java -jar KCBApp-0.0.1-SNAPSHOT.jar
+SuccessExitStatus=143
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
