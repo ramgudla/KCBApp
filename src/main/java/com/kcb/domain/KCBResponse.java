@@ -45,6 +45,7 @@ public class KCBResponse {
 		public String transactionId;
 		public String utilityName;
 	    public String customerName;
+	    public String subCompartment;
 	    public String amount;
 	}
 

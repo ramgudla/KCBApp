@@ -22,24 +22,16 @@ public class KCBController {
 
 	@PostMapping(path = "/query")
 	public KCBResponse query(@RequestBody KCBRequest request) throws BillRefNumberNotFoundException {
-		log.info("Received request: {}", transactionDao.objToJson(request));
-		
-		try {
-			KCBResponse resp = transactionDao.query(request);
-			log.info("Finished execution : query method");
-			return resp;
-		} catch (BillRefNumberNotFoundException e) {
-			throw e;
-		}
+		log.info("Received request: query method");
+		KCBResponse resp = transactionDao.query(request);
+		log.info("Finished execution : query method");
+		return resp;
 	}
 
 	@PostMapping(path = "/notify")
 	public KCBResponse notify(@RequestBody KCBRequest request) throws Exception {
-		log.info("Notification initiated...");
-		log.info("Received request: {}", transactionDao.objToJson(request));
-		
+		log.info("Received request: notify method");
 		KCBResponse resp = transactionDao.notify(request);
-
 		log.info("Finished execution : notify method");
 		return resp;
 	}

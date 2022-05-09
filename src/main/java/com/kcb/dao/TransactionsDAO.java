@@ -23,7 +23,6 @@ import com.kcb.domain.KCBResponse;
 import com.kcb.domain.KCBResponse.Header;
 import com.kcb.domain.KCBResponse.ResponsePayload;
 import com.kcb.domain.KCBResponse.TransactionInfo;
-import com.kcb.exception.BillRefNumberNotFoundException;
 import com.kcb.exception.DuplicateRecordException;
 
 @Repository
@@ -39,7 +38,7 @@ public class TransactionsDAO {
 
 	private static Logger log = LoggerFactory.getLogger(TransactionsDAO.class);
 
-	public KCBResponse query(KCBRequest request) throws BillRefNumberNotFoundException {
+	public KCBResponse query(KCBRequest request) {
 		
 		log.info("Query request received:\n {}", objToJson(request));
 		
@@ -50,7 +49,7 @@ public class TransactionsDAO {
 					.messageID(request.getHeader().getMessageID())
 					.originatorConversationID(request.getHeader().getOriginatorConversationID())
 					.statusCode("0")
-					.statusMessage("Processed Successfully")
+					.statusMessage("Processed Successfully.")
 					.build();
 			String sqlQuery = "select * from KFS_CUST_TRX_V where 1=1 and trx_number = ?";
 			KCBResponse.KCBResponseBuilder responseBuilder = jdbcTemplate.queryForObject(sqlQuery,
@@ -60,9 +59,32 @@ public class TransactionsDAO {
 			return responseBuilder.build();
 		} catch (EmptyResultDataAccessException dae) {
 			log.error("Exception occured while querying. The error is: " + dae.getMessage(), dae);
-			String errorMessage = String.format(
-					"BillRefNumber: %s is not found in KFS ERP system. Pass correct Performa invoice number", bill_ref);
-			throw new BillRefNumberNotFoundException(errorMessage);
+			
+			String errorMessage = String.format("Payment validation Failed. Bill reference: %s does not exist", bill_ref);
+			
+			Header header = Header.builder()
+					.messageID(request.getHeader().getMessageID())
+					.originatorConversationID(request.getHeader().getOriginatorConversationID())
+					.statusCode("1")
+					.statusMessage(errorMessage)
+					.build();
+			
+			TransactionInfo transactionInfo = TransactionInfo.builder()
+					.transactionId("")
+					.customerName("")
+					.utilityName("")
+					.subCompartment("")
+					.amount("0")
+					.build();
+
+			ResponsePayload payload = ResponsePayload.builder()
+					.transactionInfo(transactionInfo)
+					.build();
+			
+			return KCBResponse.builder()
+					.header(header)
+					.responsePayload(payload)
+					.build();
 		} catch (Exception ex) {
 			log.error("Exception occured while querying. The error is: " + ex.getMessage(), ex);
 			throw ex;
@@ -96,7 +118,7 @@ public class TransactionsDAO {
 					.messageID(request.getHeader().getMessageID())
 					.originatorConversationID(request.getHeader().getOriginatorConversationID())
 					.statusCode("0")
-					.statusMessage("Notification received")
+					.statusMessage("Notification received.")
 					.build();
 
 			TransactionInfo transactionInfo = TransactionInfo.builder()
@@ -135,6 +157,7 @@ public class TransactionsDAO {
 				.transactionId(resultSet.getString("trx_number"))
 				.customerName(resultSet.getString("customer_name"))
 				.utilityName("KFS_INV")
+				.subCompartment(resultSet.getString("SUB_COMPARTMENT"))
 				.amount(resultSet.getString("AMOUNT_DUE_REMAINING"))
 				.build();
 
