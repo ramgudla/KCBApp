@@ -102,7 +102,7 @@ public class TransactionsDAO {
 				.getDebitMSISDN();
 		float tranx_amt = request.getRequestPayload().getAdditionalData().getNotificationData()
 				.getTransactionAmt();
-		Date tranx_date = new SimpleDateFormat("yyyyMMdd", Locale.ENGLISH)
+		Date tranx_date = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 				.parse(request.getRequestPayload().getAdditionalData().getNotificationData().getTransactionDate());
 		String tranx_id = request.getRequestPayload().getAdditionalData().getNotificationData().getTransactionID();
 		String customer_name = request.getRequestPayload().getAdditionalData().getNotificationData().getFirstName();
