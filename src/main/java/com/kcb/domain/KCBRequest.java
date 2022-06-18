@@ -41,9 +41,33 @@ public class KCBRequest {
 	@AllArgsConstructor
 	@NoArgsConstructor
 	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class RequestPayload {
+		public PrimaryData primaryData;
+		public AdditionalData additionalData;
+	}
+	
+	@Data
+	@Builder
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	public static class PrimaryData {
 		public String businessKey;
 		public String businessKeyType;
+	}
+	
+	@Data
+	@Builder
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class AdditionalData {
+		public NotificationData notificationData;
+		public QueryData queryData;
 	}
 
 	@Data
@@ -81,27 +105,4 @@ public class KCBRequest {
 	    public String businessKeyType;
 	}
 
-	@Data
-	@Builder
-	@Getter
-	@Setter
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	public static class AdditionalData {
-		public NotificationData notificationData;
-		public QueryData queryData;
-	}
-
-	@Data
-	@Builder
-	@Getter
-	@Setter
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@JsonIgnoreProperties(ignoreUnknown = true)
-	public static class RequestPayload {
-		public PrimaryData primaryData;
-		public AdditionalData additionalData;
-	}
 }
