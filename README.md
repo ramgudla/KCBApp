@@ -10,10 +10,11 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
 
 ## Run: ##
 
->In DMZ server:
+>In PROD server:
 1. Switch to root.
-
-Create the following file:
+2. $ mkdir -p /homme/kfs
+3. unzip KCBApp.zip 
+4. Create the following file:
 $ vi /etc/systemd/system/kfs.service
 
 [Unit]
@@ -34,16 +35,16 @@ WantedBy=multi-user.target
 $ ls -lrt kfs.service
 kfs.service -> /usr/lib/systemd/system/kfs.service
 
-Enable the service:
+5. Enable the service:
 $ systemctl enable kfs.service
 
-Start the service:
+6. Start the service:
 systemctl start kfs
 
-To Check the service status:
+7. To Check the service status:
 systemctl status kfs
 
-To Stop the service:
+8. To Stop the service:
 systemctl stop kfs
 
 ## Test: ##
