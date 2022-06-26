@@ -12,8 +12,8 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
 
 >In PROD server:
 1. Switch to root.
-2. $ mkdir -p /homme/kfs
-3. unzip KCBApp.zip 
+2. $ mkdir -p /home/kfs
+3. $ unzip KCBApp.zip 
 4. Create the following file:\
       $ vi /etc/systemd/system/kfs.service
 
@@ -48,6 +48,6 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
       $ systemctl stop kfs
 
 ## Test: ##
-    
-      curl -vvv http://localhost:8081/query -H "Content-Type: application/json" -d @query.json\
-      curl -vvv http://192.168.17.6:8081/tenderdeposit -H "Content-Type: application/json" -d @tender.json
+
+      $ curl -vvv http://localhost:8081/query -H "Content-Type: application/json" -d @query.json\
+      $ curl -vvv http://192.168.17.6:8081/tenderdeposit -H "Content-Type: application/json" -d @tender.json
