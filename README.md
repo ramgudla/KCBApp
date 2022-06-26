@@ -48,6 +48,6 @@ systemctl stop kfs
 
 ## Test: ##
     
->In UAT:
+>In UAT:\
 curl -vvv http://localhost:8081/query -H "Content-Type: application/json" -d @query.json\
 curl -vvv http://192.168.17.6:8081/tenderdeposit -H "Content-Type: application/json" -d @tender.json
