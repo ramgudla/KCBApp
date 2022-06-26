@@ -32,10 +32,16 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
       [Install]
       WantedBy=multi-user.target
 
-      $ ls -lrt kfs.service\
-      kfs.service -> /usr/lib/systemd/system/kfs.service
 
 5. Enable the service:\
+      $ systemctl daemon-reload\
+      $ systemctl enable kfs.service\
+      $ ls -lrt kfs.service\
+      kfs.service -> /usr/lib/systemd/system/kfs.service\
+      
+      If the above gives errors, try:\
+      $ mv /etc/systemd/system/kfs.service /usr/lib/systemd/system/\
+      $ ln -s /usr/lib/systemd/system/kfs.service /etc/systemd/system/kfs.service\
       $ systemctl enable kfs.service
 
 6. Start the service:\
