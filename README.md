@@ -24,7 +24,7 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
       [Service]
       User=root\
       WorkingDirectory=/home/kfs\
-      ExecStart=/usr/bin/java -Dserver.port=8081 -jar /home/kfs/KCBApp-0.0.1-SNAPSHOT.jar\
+      ExecStart=/usr/bin/java -Dserver.port=8081 -jar /home/kfs/KCBApp-0.0.1-SNAPSHOT.jar --logging.config=/home/kfs/config/logback-spring.xml --spring.config.location=/home/kfs/config/application.properties \
       SuccessExitStatus=143\
       Restart=always\
       RestartSec=30
