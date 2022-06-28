@@ -13,7 +13,8 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
 >In PROD server:
 1. Switch to root.
 2. $ mkdir -p /home/kfs
-3. $ unzip KCBApp.zip 
+3. $ unzip KCBApp.zip\
+    3.1 update the database details in: config/application.properties file
 4. Create the following file:\
       $ vi /etc/systemd/system/kfs.service
 
