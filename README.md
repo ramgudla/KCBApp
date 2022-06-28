@@ -16,7 +16,7 @@ $ zip -r KCBApp.zip KCBApp-0.0.1-SNAPSHOT.jar config
 3. $ unzip KCBApp.zip\
     3.1 update the database details in: config/application.properties file
 
-Now, Either follow steps 4 - 8 (or) run : $ /usr/bin/java -Dserver.port=8081 -jar /home/h2h/KCBApp-0.0.1-SNAPSHOT.jar --logging.config=/home/h2h/config/logback-spring.xml --spring.config.location=/home/h2h/config/application.properties &
+Now, Either follow steps 4 - 8 to run the application as systemd service (OR) Run : $ /usr/bin/java -Dserver.port=8081 -jar /home/h2h/KCBApp-0.0.1-SNAPSHOT.jar --logging.config=/home/h2h/config/logback-spring.xml --spring.config.location=/home/h2h/config/application.properties &
 
 4. Create the following file:\
       $ vi /etc/systemd/system/kfs.service
